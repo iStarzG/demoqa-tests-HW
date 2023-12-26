@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -47,10 +49,12 @@ public class DemoQATests {
         $("label[for='hobbies-checkbox-1']").click(); // Отмечаем хобби Sports
         $("label[for='hobbies-checkbox-2']").click(); // Отмечаем хобби Reading
         $("label[for='hobbies-checkbox-3']").click(); // Отмечаем хобби Music
+        $("#uploadPicture").uploadFromClasspath("1.jpeg"); // Загружаем картинку с именем "1.jpeg"
         $("#currentAddress").setValue("Nigeria"); // Указываем адрес Nigeria
         $("#react-select-3-input").setValue("Haryana").sendKeys(Keys.ENTER); // Указываем страну Haryana
         $("#react-select-4-input").setValue("Karnal").sendKeys(Keys.ENTER); // Указываем город Karnal
         $("#submit").click(); // Нажимаем кнопку submit
+
 
 
 
@@ -62,6 +66,7 @@ public class DemoQATests {
         $(".table").shouldHave(text("Date of Birth 06 September,2000")); // Проверка даты рождения
         $(".table").shouldHave(text("Subjects English")); // Проверка субъекта
         $(".table").shouldHave(text("Hobbies Sports, Reading, Music")); // Проверка хобби
+        $(".table").shouldHave(text("Picture 1.jpeg")); // Проверка загрузки картинки с именем "1.jpeg"
         $(".table").shouldHave(text("Address Nigeria")); // Проверка адреса
         $(".table").shouldHave(text("State and City Haryana Karnal")); // Проверка страны и города
 
