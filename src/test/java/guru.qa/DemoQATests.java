@@ -1,6 +1,7 @@
 package guru.qa;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.selector.ByText;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +25,8 @@ public class DemoQATests {
         Configuration.holdBrowserOpen = true;
         Configuration.timeout = 5000; // default 4000
         System.out.println("\n\n### @BeforeAll\n");
+
+
     }
 
     @AfterAll
@@ -33,10 +36,12 @@ public class DemoQATests {
     @Test
     void demoQATests() {
         open("/automation-practice-form"); // Открытие браузера с нужной ссылкой
+        executeJavaScript("$('#fixedban').remove()");//Скрытие рекламы
+        executeJavaScript("$('footer').remove()");// Скрытие футера
         $("#firstName").setValue("Kirill");  //Указываем значение поля имя
         $("#lastName").setValue("Mironov");  //Указываем значение поля фамилия
         $("#userEmail").setValue("kiryamironov@mail.ru");  //Указываем значение поля емайл
-        $("[class=custom-control-label]").click();  //Выбираем пол (не ламинат)
+        $("label[for='gender-radio-3']").click();  //Выбираем пол "other"
         $("#userNumber").setValue("8800535353");  //Указываем значение поля номер телефона
         $("#dateOfBirthInput").click();   //Нажимаем на кнопку выбора даты рождения
         $("[class=react-datepicker__month-select]").click();  //Нажимаем на кнопку выбора месяца
@@ -61,7 +66,7 @@ public class DemoQATests {
         $(".modal-open").shouldBe(visible); // Проверка открытия окна с данными
         $(".table").shouldHave(text("Student Name Kirill Mironov")); // Проверка имени, фамилии
         $(".table").shouldHave(text("Student Email kiryamironov@mail.ru")); // Проверка емайла
-        $(".table").shouldHave(text("Gender Male")); // Проверка мужского пола
+        $(".table").shouldHave(text("Gender Other")); // Проверка пола "other"
         $(".table").shouldHave(text("Mobile 8800535353")); // Проверка номера телефона
         $(".table").shouldHave(text("Date of Birth 06 September,2000")); // Проверка даты рождения
         $(".table").shouldHave(text("Subjects English")); // Проверка субъекта
